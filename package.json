@@ -1,0 +1,19 @@
+{
+  "name": "flash-sale-api",
+  "version": "1.0.0",
+  "description": "A beginner-friendly flash-sale API with SQLite transactions and idempotent orders.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.1.0"
+  }
+}

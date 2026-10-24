@@ -1,0 +1,66 @@
+### Health check
+GET http://localhost:3000/api/health
+
+### Browse products and stock
+GET http://localhost:3000/api/products
+
+### Filter in-stock products
+GET http://localhost:3000/api/products?inStock=true
+
+### Search products
+GET http://localhost:3000/api/products?q=keyboard
+
+### View a product and its current stock
+GET http://localhost:3000/api/products/1
+
+### Register a user (run once for this username)
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "demo_user",
+  "password": "a-strong-demo-password"
+}
+
+### Log in; copy the returned token into the Authorization headers below
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "demo_user",
+  "password": "a-strong-demo-password"
+}
+
+### Create an order. Replace <TOKEN> with your token and use a new Idempotency-Key for a new order.
+POST http://localhost:3000/api/orders
+Authorization: Bearer <TOKEN>
+Content-Type: application/json
+Idempotency-Key: demo-order-2026-01
+
+{
+  "productId": 1,
+  "quantity": 1
+}
+
+### Repeat the exact same request with the SAME key: it must return the original order and not reduce stock again.
+POST http://localhost:3000/api/orders
+Authorization: Bearer <TOKEN>
+Content-Type: application/json
+Idempotency-Key: demo-order-2026-01
+
+{
+  "productId": 1,
+  "quantity": 1
+}
+
+### View your orders
+GET http://localhost:3000/api/orders
+Authorization: Bearer <TOKEN>
+
+### View one of your orders (replace <ORDER_ID>)
+GET http://localhost:3000/api/orders/<ORDER_ID>
+Authorization: Bearer <TOKEN>
+
+### Log out
+POST http://localhost:3000/api/auth/logout
+Authorization: Bearer <TOKEN>
